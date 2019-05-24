@@ -4,7 +4,7 @@
     <section>
       <h2>Shopping list</h2>
       <ul v-if="shoppingListItems.length">
-        <li v-for="item in shoppingListItems" :key="item">{{ item }}</li>
+        <li v-for="item in shoppingListItems" :key="item.name">{{ item.name }}</li>
       </ul>
       <p v-else>No items added yet</p>
     </section>
@@ -13,7 +13,7 @@
       <fieldset>
         <legend>Shopping list</legend>
         <input type="text" v-model="newShoppingListItem" required/>
-        <button>Add</button>
+        <button :disabled="shoppingListPending">Add</button>
       </fieldset>
     </form>
   </main>
@@ -27,16 +27,30 @@
     data() {
       return {
         shoppingListItems: [],
+        shoppingListPending: false,
         newShoppingListItem: '',
       }
     },
+    async mounted() {
+      this.removeShoppingListListener = firebase
+        .firestore()
+        .collection('shoppingList')
+        .onSnapshot(this.onSnapshot)
+    },
+    beforeDestroy() {
+      this.removeShoppingListListener()
+    },
     methods: {
+      onSnapshot(snap) {
+        console.log('aapje');
+        this.shoppingListItems = snap.docs.map(doc => doc.data())
+      },
       async addToShoppingList() {
+        this.newShoppingListItem = ''
         const db = firebase.firestore()
         await db.collection('shoppingList').add({
           name: this.newShoppingListItem
         })
-        this.newShoppingListItem = ''
       }
     }
   }
