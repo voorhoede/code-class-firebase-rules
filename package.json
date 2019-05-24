@@ -1,13 +1,14 @@
 {
-  "name": "code-class-firebase-rules",
+  "name": "rules",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "start": "vue-cli-service serve"
   },
   "dependencies": {
-    "vue": "^2.6.10"
+    "firebase": "6.0.4",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@vue/cli-service": "^3.7.0",
