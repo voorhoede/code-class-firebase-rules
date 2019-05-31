@@ -52,12 +52,15 @@
       },
       async addToShoppingList() {
         try {
+          this.shoppingListPending = true
           await firebase.firestore().collection('shoppingList').add({
             name: this.newShoppingListItem
           })
           this.newShoppingListItem = ''
         } catch (error) {
           console.error(error)
+        } finally {
+          this.shoppingListPending = false
         }
       }
     }

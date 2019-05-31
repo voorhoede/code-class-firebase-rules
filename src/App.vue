@@ -8,8 +8,9 @@
     <div class="nav">
       <router-link to="/">Overview</router-link>
       | <router-link to="/exercise1">Exercise1</router-link>
+      | <router-link to="/exercise2">Exercise2</router-link>
     </div>
-    <router-view/>
+    <router-view :user="user"/>
   </div>
 </template>
 

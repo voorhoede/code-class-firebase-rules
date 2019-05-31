@@ -46,6 +46,16 @@ export default new Router({
       component: function () {
         return import(/* webpackChunkName: "exercise1" */ './views/Exercise1.vue')
       }
-    }
+    },
+    {
+      path: '/exercise2',
+      name: 'exercise2',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: function () {
+        return import(/* webpackChunkName: "exercise2" */ './views/Exercise2.vue')
+      }
+    },
   ]
 })
