@@ -26,10 +26,13 @@
       }
     },
     mounted() {
-      firebase.initializeApp(firebaseConfig)
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig)
+      }
 
-      const auth = firebase.auth()
-      auth.onAuthStateChanged(user => this.user = user)
+      firebase
+        .auth()
+        .onAuthStateChanged(user => this.user = user)
     },
     methods: {
       logout() {
