@@ -1,10 +1,11 @@
 <template>
   <main>
     <h1>Exercise 1</h1>
+    <p>Write rules in the firebase console, to only allow additions to the shopping list when the user is logged in. Reading the shopping list should always be allowed.</p>
     <section>
-      <h2>Shopping list</h2>
-      <ul v-if="shoppingListItems.length">
-        <li v-for="item in shoppingListItems" :key="item.name">{{ item.name }}</li>
+      <h2>Shared shopping list</h2>
+      <ul class="shopping-list" v-if="shoppingListItems.length">
+        <li v-for="item in shoppingListItems" :key="item.id">{{ item.name }}</li>
       </ul>
       <p v-else>No items added yet</p>
     </section>
@@ -42,15 +43,22 @@
     },
     methods: {
       onSnapshot(snap) {
-        console.log('aapje');
-        this.shoppingListItems = snap.docs.map(doc => doc.data())
+        this.shoppingListItems = snap.docs.map(doc => {
+          return {
+            id: doc.id,
+            ...doc.data()
+          }
+        })
       },
       async addToShoppingList() {
-        this.newShoppingListItem = ''
-        const db = firebase.firestore()
-        await db.collection('shoppingList').add({
-          name: this.newShoppingListItem
-        })
+        try {
+          await firebase.firestore().collection('shoppingList').add({
+            name: this.newShoppingListItem
+          })
+          this.newShoppingListItem = ''
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
   }
@@ -59,5 +67,10 @@
 <style scoped>
   fieldset {
     border: none;
+  }
+
+  .shopping-list {
+    list-style: none;
+    padding: 0;
   }
 </style>
