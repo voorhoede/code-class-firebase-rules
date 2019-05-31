@@ -43,23 +43,19 @@
       }
     },
     mounted() {
-      firebase.auth().onAuthStateChanged(async user => {
+      // Firebase calls this listener on initiale as well
+      this.removeAuthStateListner = firebase.auth().onAuthStateChanged(async user => {
         if (user) {
           await this.$nextTick()
           this.listenToChanges()
         } else {
-          this.removeListener()
+          this.removeCollectionListener()
         }
       })
-
-      if (this.user) {
-        this.listenToChanges()
-      } else {
-        this.stopListening
-      }
     },
     beforeDestroy() {
-      this.removeListener()
+      this.removeCollectionListener()
+      this.authStateListener() // remove auth state listener
     },
     methods: {
       listenToChanges() {
@@ -70,7 +66,7 @@
           .collection('shoppingList')
           .onSnapshot(this.onSnapshot)
       },
-      removeListener() {
+      removeCollectionListener() {
         if (this.collectionListener) {
           return this.collectionListener()
         }
