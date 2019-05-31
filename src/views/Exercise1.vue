@@ -69,6 +69,11 @@
     border: none;
   }
 
+  main {
+    margin: 0 auto;
+    max-width: 40em;
+  }
+
   .shopping-list {
     list-style: none;
     padding: 0;
