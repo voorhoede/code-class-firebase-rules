@@ -43,8 +43,8 @@
       }
     },
     mounted() {
-      // Firebase calls this listener on initiale as well
-      this.removeAuthStateListner = firebase.auth().onAuthStateChanged(async user => {
+      // Firebase calls this listener on initiate as well
+      this.removeAuthStateListener = firebase.auth().onAuthStateChanged(async user => {
         if (user) {
           await this.$nextTick()
           this.listenToChanges()
@@ -55,7 +55,7 @@
     },
     beforeDestroy() {
       this.removeCollectionListener()
-      this.authStateListener() // remove auth state listener
+      this.removeAuthStateListener() // remove auth state listener
     },
     methods: {
       listenToChanges() {
