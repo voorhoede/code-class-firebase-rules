@@ -1,7 +1,11 @@
 <template>
   <main>
     <h1>Exercise 1</h1>
-    <p>Write rules in the firebase console, to only allow additions to the shopping list when the user is logged in. Reading the shopping list should always be allowed.</p>
+    <ol class="exercise-steps">
+      <li>Write rules in the firebase console, to only allow additions to the shopping list when the user is logged in.</li>
+      <li>Reading the shopping list should always be allowed.</li>
+      <li>Validate whether the written data has a name property</li>
+    </ol>
     <section>
       <h2>Shared shopping list</h2>
       <ul class="shopping-list" v-if="shoppingListItems.length">
@@ -75,6 +79,10 @@
   main {
     margin: 0 auto;
     max-width: 40em;
+  }
+
+  .exercise-steps {
+    text-align: left;
   }
 
   .shopping-list {
