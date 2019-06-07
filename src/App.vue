@@ -9,6 +9,7 @@
       <router-link to="/">Overview</router-link>
       | <router-link to="/exercise1">Exercise1</router-link>
       | <router-link to="/exercise2">Exercise2</router-link>
+      | <router-link to="/exercise3">Exercise3</router-link>
     </div>
     <router-view :user="user"/>
   </div>
